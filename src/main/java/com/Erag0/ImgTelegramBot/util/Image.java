@@ -3,7 +3,11 @@ package com.Erag0.ImgTelegramBot.util;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 
 public class Image {
 
@@ -25,7 +29,7 @@ public class Image {
         int rgb = img.getRGB(0,0);
         for (int i = 0; i < resImg.getWidth(); i++){
             for (int j = 0; j < resImg.getHeight(); j++){
-                if (j % 5 == 0){
+                if (j % 3 == 0){
                     rgb = img.getRGB(i,j);
                 }
                 resImg.setRGB(i,j,rgb);
@@ -36,6 +40,17 @@ public class Image {
 
     public static void save(BufferedImage img, String path) {
         saveBufferedImage(img, path.substring(path.lastIndexOf(".") + 1), path);
+    }
+
+    public static void saveFromUrl(String url, String path){
+        try{
+            URL website = new URL(url);
+            ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+            FileOutputStream fos = new FileOutputStream(path);
+            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static BufferedImage getBufferedImage(String path) {

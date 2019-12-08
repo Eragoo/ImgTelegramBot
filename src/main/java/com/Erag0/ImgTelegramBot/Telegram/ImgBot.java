@@ -1,0 +1,52 @@
+package com.Erag0.ImgTelegramBot.Telegram;
+
+import com.Erag0.ImgTelegramBot.Telegram.Commands.BotMememizeCommand;
+import com.pengrad.telegrambot.TelegramBot;
+import com.pengrad.telegrambot.UpdatesListener;
+import com.pengrad.telegrambot.model.ChatPhoto;
+import com.pengrad.telegrambot.model.File;
+import com.pengrad.telegrambot.model.PhotoSize;
+import com.pengrad.telegrambot.model.Update;
+import com.pengrad.telegrambot.request.GetFile;
+
+import java.util.List;
+
+public class ImgBot {
+    private static final String TOKEN = "592148368:AAE59ohkGYvBjkJLt-zrmmtPKYANRtSrTYY";
+    private TelegramBot bot;
+
+    public ImgBot() {
+        this.bot = new TelegramBot(TOKEN);
+    }
+
+    public void Start() {
+        BotCore();
+    }
+
+    private void BotCore() {
+        this.bot.setUpdatesListener(new UpdatesListener() {
+            @Override
+            public int process(List<Update> updates) {
+                for (Update update : updates) {
+                    System.out.println(update.toString());
+                    if (update.message().photo() != null) {
+                        String imgPath = getFullImagePath(update);
+                        BotMememizeCommand mememizeCommand = new BotMememizeCommand();
+                        mememizeCommand.execute(bot,update,imgPath,"/Users/macbook/Documents/programming/java_project/ImgTelegramBot/ImgTelegramBot/res/kartinka.jpg");
+                    }
+                }
+                return UpdatesListener.CONFIRMED_UPDATES_ALL;
+            }
+
+            private String getFullImagePath(Update update) {
+                PhotoSize[] photos = update.message().photo();
+                String file_id = photos[1].fileId();
+
+                GetFile getFileRequest = new GetFile(file_id);
+
+                File file = bot.execute(getFileRequest).file();
+                return bot.getFullFilePath(file);
+            }
+        });
+    }
+}
