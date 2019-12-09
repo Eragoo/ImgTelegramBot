@@ -13,7 +13,11 @@ import java.nio.channels.ReadableByteChannel;
 public class App {
 
 	public static void main(String[] args) throws IOException {
-		ImgBot bot = new ImgBot();
-		bot.Start();
+//		ImgBot bot = new ImgBot();
+//		bot.Start();
+		BufferedImage img = Image.getBufferedImage("/Users/macbook/Documents/programming/java_project/ImgTelegramBot/ImgTelegramBot/res/kartinka.jpg");
+		img = Image.getRedBoostedImage(img);
+		Image.save(img, "/Users/macbook/Documents/programming/java_project/ImgTelegramBot/ImgTelegramBot/res/kartinka.jpg");
 	}
+
 }

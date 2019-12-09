@@ -5,7 +5,7 @@ import com.pengrad.telegrambot.model.Update;
 
 import java.awt.image.BufferedImage;
 
-public class MememizeCommand {
+public class WidthQualityCommand implements ImageCommand{
     private double n = 3;
 
     public void execute(String url, String path) {

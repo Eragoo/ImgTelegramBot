@@ -1,6 +1,7 @@
 package com.Erag0.ImgTelegramBot.util;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,7 +12,30 @@ import java.nio.channels.ReadableByteChannel;
 
 public class Image {
 
+    public static BufferedImage getRedBoostedImage(BufferedImage image) {
+        if (image == null) {
+            return null;
+        }
+        BufferedImage resImg = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
+
+        for (int i = 0; i < resImg.getWidth(); i++){
+            for (int j = 0; j < resImg.getHeight(); j++){
+                Color c = new Color(image.getRGB(i,j));
+                int red = 255;
+                int green = c.getGreen();
+                int blue = c.getBlue();
+                c = new Color(red,green,blue);
+                resImg.setRGB(i,j,c.getRGB());
+            }
+        }
+        return resImg;
+
+    }
+
     public static BufferedImage getWidthMultipliedImage(BufferedImage img, double n) {
+        if (img == null) {
+            return null;
+        }
         BufferedImage resultImage = new BufferedImage((int) (img.getWidth()*n), img.getHeight(), BufferedImage.TYPE_INT_RGB);
 
         for (int j = 0; j < resultImage.getHeight(); j++) {
@@ -23,14 +47,16 @@ public class Image {
     }
 
     public static BufferedImage getQualityImpairedImage(BufferedImage image) {
-        BufferedImage img = image;
-        BufferedImage resImg = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
+        if (image == null) {
+            return null;
+        }
+        BufferedImage resImg = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
 
-        int rgb = img.getRGB(0,0);
+        int rgb = image.getRGB(0,0);
         for (int i = 0; i < resImg.getWidth(); i++){
             for (int j = 0; j < resImg.getHeight(); j++){
                 if (j % 3 == 0){
-                    rgb = img.getRGB(i,j);
+                    rgb = image.getRGB(i,j);
                 }
                 resImg.setRGB(i,j,rgb);
             }
@@ -66,7 +92,7 @@ public class Image {
     private static void saveBufferedImage(BufferedImage img, String formatname, String path) {
         try {
             ImageIO.write(img, formatname, new File(path));
-        } catch (IOException ex) {
+        } catch (IOException | NullPointerException ex) {
             ex.printStackTrace();
         }
     }

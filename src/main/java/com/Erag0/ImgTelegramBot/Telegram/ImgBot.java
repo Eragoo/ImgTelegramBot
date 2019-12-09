@@ -1,9 +1,8 @@
 package com.Erag0.ImgTelegramBot.Telegram;
 
-import com.Erag0.ImgTelegramBot.Telegram.Commands.BotMememizeCommand;
+import com.Erag0.ImgTelegramBot.Telegram.Commands.DefaultCommand;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.UpdatesListener;
-import com.pengrad.telegrambot.model.ChatPhoto;
 import com.pengrad.telegrambot.model.File;
 import com.pengrad.telegrambot.model.PhotoSize;
 import com.pengrad.telegrambot.model.Update;
@@ -29,23 +28,9 @@ public class ImgBot {
             public int process(List<Update> updates) {
                 for (Update update : updates) {
                     System.out.println(update.toString());
-                    if (update.message().photo() != null) {
-                        String imgPath = getFullImagePath(update);
-                        BotMememizeCommand mememizeCommand = new BotMememizeCommand();
-                        mememizeCommand.execute(bot,update,imgPath,"/Users/macbook/Documents/programming/java_project/ImgTelegramBot/ImgTelegramBot/res/kartinka.jpg");
-                    }
+
                 }
                 return UpdatesListener.CONFIRMED_UPDATES_ALL;
-            }
-
-            private String getFullImagePath(Update update) {
-                PhotoSize[] photos = update.message().photo();
-                String file_id = photos[1].fileId();
-
-                GetFile getFileRequest = new GetFile(file_id);
-
-                File file = bot.execute(getFileRequest).file();
-                return bot.getFullFilePath(file);
             }
         });
     }

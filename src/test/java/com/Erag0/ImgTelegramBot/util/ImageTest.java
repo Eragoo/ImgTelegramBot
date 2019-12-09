@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class ImageTest {
@@ -35,6 +36,26 @@ public class ImageTest {
         int expectedWith = Image.getWidthMultipliedImage(localImg,0.5).getWidth();
         int currentDif = Math.abs(expectedWith - suspectedWidth);
         Assert.assertTrue( maxDif >= currentDif);
+    }
+
+    @Test
+    public void testNullIntoGetMultupyWith() {
+
+        Assert.assertNull(Image.getWidthMultipliedImage(null,2));
+    }
+
+    @Test
+    public void testgetRedBoostedImage() {
+        BufferedImage img = Image.getBufferedImage("/Users/macbook/Documents/programming/java_project/ImgTelegramBot/ImgTelegramBot/src/test/java/com/Erag0/ImgTelegramBot/res/kartinka.jpg");
+        img = Image.getRedBoostedImage(img);
+        int red = new Color(img.getRGB(1,1)).getRed();
+        Assert.assertEquals(255,red);
+    }
+
+    @Test
+    public void testNullInto_getRedBoostedImage() {
+        BufferedImage img = Image.getRedBoostedImage(null);
+        Assert.assertNull(img);
     }
 
     @Test
