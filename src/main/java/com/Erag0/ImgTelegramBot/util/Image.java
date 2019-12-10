@@ -55,7 +55,7 @@ public class Image {
         int rgb = image.getRGB(0,0);
         for (int i = 0; i < resImg.getWidth(); i++){
             for (int j = 0; j < resImg.getHeight(); j++){
-                if (j % 3 == 0){
+                if (j % 5 == 0){
                     rgb = image.getRGB(i,j);
                 }
                 resImg.setRGB(i,j,rgb);

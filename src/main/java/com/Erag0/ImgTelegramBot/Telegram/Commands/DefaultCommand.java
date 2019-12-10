@@ -12,9 +12,10 @@ import java.io.File;
 public class DefaultCommand extends BotCommand{
     public void execute(TelegramBot bot, Update update, String path) {
 
-        String urlPath = getFullImageUrlPath(bot,update);
+        String url = getFullImageUrlPath(bot,update);
         long chat_id = update.message().chat().id();
-        new WidthQualityCommand().execute(urlPath,path);
+        saveImage(url, path);
+        new WidthQualityCommand().execute(path);
 
         File file = new File(path);
         SendPhoto sendPhoto = new SendPhoto(chat_id, file);

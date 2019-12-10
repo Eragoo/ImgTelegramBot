@@ -4,23 +4,14 @@ import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Update;
 
 public class CommandController {
-    private TelegramBot bot;
-    private Update update;
-    private final String[] PARAMS  = {"RED", "WIDTH", "IMPAIR"};
 
-    public CommandController(TelegramBot bot, Update update) {
-        this.bot = bot;
-        this.update = update;
-    }
-    public void Start() {
-    }
-
-
-    private String[] getParams(String str) {
-        if (str.length() > 100) {
-            return null;
+    public void Start(TelegramBot bot, Update update, String path) {
+        if(update.message().text() == null) {
+            if (update.message().caption() != null) {
+                new ModuleCommand().execute(bot, update, path);
+            } else {
+                new DefaultCommand().execute(bot,update,path);
+            }
         }
-        return str.split("\\s+");
-
     }
 }

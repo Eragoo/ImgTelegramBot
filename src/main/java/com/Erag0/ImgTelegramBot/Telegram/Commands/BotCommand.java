@@ -1,5 +1,6 @@
 package com.Erag0.ImgTelegramBot.Telegram.Commands;
 
+import com.Erag0.ImgTelegramBot.util.Image;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.PhotoSize;
 import com.pengrad.telegrambot.model.Update;
@@ -16,5 +17,9 @@ public abstract class BotCommand {
 
         com.pengrad.telegrambot.model.File file = bot.execute(getFileRequest).file();
         return bot.getFullFilePath(file);
+    }
+
+    protected void saveImage(String url, String path) {
+        Image.saveFromUrl(url,path);
     }
 }

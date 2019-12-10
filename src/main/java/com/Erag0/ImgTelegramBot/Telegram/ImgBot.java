@@ -1,5 +1,6 @@
 package com.Erag0.ImgTelegramBot.Telegram;
 
+import com.Erag0.ImgTelegramBot.Telegram.Commands.CommandController;
 import com.Erag0.ImgTelegramBot.Telegram.Commands.DefaultCommand;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.UpdatesListener;
@@ -28,7 +29,7 @@ public class ImgBot {
             public int process(List<Update> updates) {
                 for (Update update : updates) {
                     System.out.println(update.toString());
-
+                    new CommandController().Start(bot, update, "/Users/macbook/Documents/programming/java_project/ImgTelegramBot/ImgTelegramBot/res/kartinka.jpg");
                 }
                 return UpdatesListener.CONFIRMED_UPDATES_ALL;
             }
