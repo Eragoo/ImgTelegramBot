@@ -1,13 +1,9 @@
 package com.Erag0.ImgTelegramBot.Telegram;
 
 import com.Erag0.ImgTelegramBot.Telegram.Commands.CommandController;
-import com.Erag0.ImgTelegramBot.Telegram.Commands.DefaultCommand;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.UpdatesListener;
-import com.pengrad.telegrambot.model.File;
-import com.pengrad.telegrambot.model.PhotoSize;
 import com.pengrad.telegrambot.model.Update;
-import com.pengrad.telegrambot.request.GetFile;
 
 import java.util.List;
 

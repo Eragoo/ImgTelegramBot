@@ -1,24 +1,14 @@
 package com.Erag0.ImgTelegramBot.Telegram.Commands;
 
-import com.Erag0.ImgTelegramBot.Commands.WidthQualityCommand;
 import com.pengrad.telegrambot.TelegramBot;
-import com.pengrad.telegrambot.model.PhotoSize;
 import com.pengrad.telegrambot.model.Update;
-import com.pengrad.telegrambot.request.GetFile;
-import com.pengrad.telegrambot.request.SendPhoto;
-
-import java.io.File;
+import com.pengrad.telegrambot.model.request.ParseMode;
+import com.pengrad.telegrambot.request.SendMessage;
 
 public class DefaultCommand extends BotCommand{
+
+    @Override
     public void execute(TelegramBot bot, Update update, String path) {
-
-        String url = getFullImageUrlPath(bot,update);
-        long chat_id = update.message().chat().id();
-        saveImage(url, path);
-        new WidthQualityCommand().execute(path);
-
-        File file = new File(path);
-        SendPhoto sendPhoto = new SendPhoto(chat_id, file);
-        bot.execute(sendPhoto);
+        bot.execute(new SendMessage(update.message().chat().id(),"_Прости, но я не понимаю тебя_👀").parseMode(ParseMode.Markdown));
     }
 }

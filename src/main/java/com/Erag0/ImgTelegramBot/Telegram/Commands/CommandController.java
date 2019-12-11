@@ -10,7 +10,13 @@ public class CommandController {
             if (update.message().caption() != null) {
                 new ModuleCommand().execute(bot, update, path);
             } else {
-                new DefaultCommand().execute(bot,update,path);
+                new DefaultPhotoCommand().execute(bot,update,path);
+            }
+        }else {
+            if (update.message().text().equals("/start")) {
+                new StartCommand().execute(bot, update, "");
+            }else {
+                new DefaultCommand().execute(bot, update, "");
             }
         }
     }
